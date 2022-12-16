@@ -30,25 +30,43 @@ The required routes are as follows
 
 
 Rails.application.routes.draw do
-  get 'cars/car/:id/comments', to: 'comments#index'
-  post 'cars/car/:id/comments', to: 'comments#create'
-  delete 'cars/car/:id/comments/:id', to: 'comments#destroy'
-  put 'cars/car/:id/comments/:id', to: 'comments#update'
-  patch 'cars/car/:id/comments/:id', to: 'comments#update'
+# GET /api/cars/car/A/comments
+get '/api/cars/car/:id/comments', to: 'api/comments#index', as: 'api_comments'
 
-  post 'cars/car/:id/comments/attachments', to: 'attachments#create'
-  delete 'cars/car/:id/comments/:id/attachments/:id', to: 'attachments#destroy'
+# POST /api/cars/car/A/comments
+post '/api/cars/car/:id/comments', to: 'api/comments#create', as: 'create_api_comments'
 
-  put 'cars/car/:id/comments/:id/like', to: 'comments#update'
-  patch 'cars/car/:id/comments/:id/like', to: 'comments#update'
+# DELETE /api/cars/car/A/comments/0
+delete '/api/cars/car/:id/comments/:comment_id', to: 'api/comments#destroy', as: 'destroy_api_comments'
 
-  put 'cars/car/:id/comments/:id/unlike', to: 'comments#update'
-  patch 'cars/car/:id/comments/:id/unlike', to: 'comments#update'
+# PUT /api/cars/car/A/comments/0
+# PATCH /api/cars/car/A/comments/0
+put '/api/cars/car/:id/comments/:comment_id', to: 'api/comments#update'
+patch '/api/cars/car/:id/comments/:comment_id', to: 'api/comments#update'
 
-  get 'cars/car/:id/comments/top', to: 'comments#top'
+# POST /api/cars/car/A/comments/0/attachments
+post '/api/cars/car/:id/comments/:comment_id/attachments', to: 'api/attachments#create', as: 'create_api_attachments'
 
-  match 'lookups/:vin' => "lookups#new", :constraints => {:vin => /.+?\-\d+/}
+# DELETE /api/cars/car/A/comments/0/attachments/1
+delete '/api/cars/car/:id/comments/:comment_id/attachments/:attachment_id', to: 'api/attachments#destroy', as: 'destroy_api_attachments'
 
-  get 'reviews', to: '/'
-  get '', to: 'reviews#index'
+# PUT /api/cars/car/A/comments/0/like
+# PATCH /api/cars/car/A/comments/0/like
+put '/api/cars/car/:id/comments/:comment_id/like', to: 'api/comments#like'
+patch '/api/cars/car/:id/comments/:comment_id/like', to: 'api/comments#like'
+
+# PUT /api/cars/car/A/comments/0/unlike
+# PATCH /api/cars/car/A/comments/0/unlike
+put '/api/cars/car/:id/comments/:comment_id/unlike', to: 'api/comments#unlike'
+patch '/api/cars/car/:id/comments/:comment_id/unlike', to: 'api/comments#unlike'
+
+# GET /api/cars/car/A/comments/top
+get '/api/cars/car/:id/comments/top', to: 'api/comments#top', as: 'top_api_comments'
+
+# GET /api/lookups/:vin - The route should allow the parameter :vin to have 17 alphanumeric characters only
+get '/api/lookups/:vin', to: 'api/lookups#new', as: 'new_api_lookup', constraints: { vin: /[A-Za-z0-9]{17}/ }
+
+# GET /reviews - Should redirect to /
+get '/reviews', to: redirect('/')
+get '', to: 'reviews#index'
 end
