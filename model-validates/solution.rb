@@ -29,9 +29,9 @@ class User < ActiveRecord::Base
 
   def phone_validation
     return if self.phone_number.nil?
-    if !self.phone_number.start_with?("+1") || !self.phone_number.length.eql?(12)
-      self.errors.add(:base, "Sorry, only US phone numbers are allowed")
-    end
+    if self.phone_number.present? && !phone_number.start_with?('+1') || phone_number[2..-1].length != 10
+      errors.add(:phone_number, "Sorry, only US phone numbers are allowed")
+	end
   end
 
   def title_attributes
