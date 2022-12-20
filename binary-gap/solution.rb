@@ -15,7 +15,7 @@ N is an integer within the range [1..2,147,483,647].
 def solution(n)
   valueList = Array.new
   total = 0
-  binaryValue = n.to_s.split("")
+  binaryValue = n.to_s(2).split("")
   binaryValue.each do |c|
     if c.eql?("0")
 			total += 1
