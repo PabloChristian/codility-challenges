@@ -20,7 +20,7 @@ public class Solution
 
         for(int i=0;i<numbers.Length; i++)
         {
-            if (numbers[i].ToString().Equals("0") && foundOne)
+            if (numbers[i].ToString().Equals("0"))
             {
                 length++;
                 if (length > max)
@@ -28,7 +28,6 @@ public class Solution
             }
             else
             {
-                foundOne = true;
                 length = 0;
             }
         }
