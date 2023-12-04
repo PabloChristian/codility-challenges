@@ -16,7 +16,6 @@ public class Solution
         int length = 0;
         int max = 0;
         string numbers = Convert.ToString(N, 2);
-        bool foundOne = false;
 
         for(int i=0;i<numbers.Length; i++)
         {
